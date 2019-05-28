@@ -26,6 +26,16 @@ Start and connect InfluxDB
 $ sudo service influxdb start
 $ influx
 ```
+If you want to enable InfluxDB web gui, please edit the configuratio file of InfluxDB
+```
+sudo vi /etc/influxdb/influxdb.conf
+
+[http]
+enabled = true
+bind–address = ":8083"
+https–enabled = false
+https–certificate = "/etc/ssl/influxdb.pem"
+```
 Create a new database for ONOS
 ```
 > CREATE DATABASE onos
