@@ -60,3 +60,5 @@ $ sudo firewall-cmd --zone=public --list-port
 1. https://community.influxdata.com/t/install-specific-version-of-influxdb-in-ubuntu-16-04/4631
 2. https://cloud.tencent.com/developer/article/1173608
 3. http://www.andremiller.net/content/grafana-and-influxdb-quickstart-on-ubuntu
+4. https://www.digitalocean.com/community/tutorials/how-to-install-prometheus-on-ubuntu-16-04 (good)
+5. https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-grafana-on-ubuntu-16-04 (good)
