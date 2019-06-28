@@ -93,6 +93,7 @@ $ sudo systemctl status prometheus
 ```
 Go to Prometheus web gui to check the service is up or not.
 
+![Prometheus](https://user-images.githubusercontent.com/9544849/60322688-aa2fd280-99b2-11e9-8529-64df17ded7a5.png)
 
 ## References
 1. https://community.influxdata.com/t/install-specific-version-of-influxdb-in-ubuntu-16-04/4631
