@@ -5,7 +5,7 @@
 2. Grafana
 
 ## Installation
-* InfluxDB
+### InfluxDB
 Update the sources
 ```
 $ sudo apt-get update
@@ -56,9 +56,48 @@ $ sudo firewall-cmd --zone=public --add-port=8888/tcp --permanent
 $ sudo firewall-cmd --reload
 $ sudo firewall-cmd --zone=public --list-port
 ```
+### Prometheus
+Get the sources and execute the script
+```
+$ git clone https://github.com/zufardhiyaulhaq/onos-prometheus-exporter
+$ cd onos-prometheus-exporter
+$ bash install.sh
+```
+The source will be installed in the directory /opt/onos-prometheus-exporter. Modify the configurate file 'onos-config.json'
+```
+{
+    "ipaddress": "x.x.x.x",
+    "username": "onos",
+    "password": "rocks"
+}
+```
+Restart the onos-exporter service
+```
+$ sudo systemctl restart onos-exporter
+```
+Add a new Prometheus Job into the configurate file
+```
+$ sudo vi /etc/prometheus/prometheus.yml
+
+   - job_name: 'onos'
+     scrape_interval: 10s
+     tls_config:
+         insecure_skip_verify: true
+     static_configs:
+       - targets: ['localhost:8888']
+```
+Restart the Prometheus service and check if the service works propertly
+```
+$ sudo systemctl restart prometheus
+$ sudo systemctl status prometheus
+```
+Go to Prometheus web gui to check the service is up or not.
+
+
 ## References
 1. https://community.influxdata.com/t/install-specific-version-of-influxdb-in-ubuntu-16-04/4631
 2. https://cloud.tencent.com/developer/article/1173608
 3. http://www.andremiller.net/content/grafana-and-influxdb-quickstart-on-ubuntu
 4. https://www.digitalocean.com/community/tutorials/how-to-install-prometheus-on-ubuntu-16-04 (good)
 5. https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-grafana-on-ubuntu-16-04 (good)
+6. https://github.com/zufardhiyaulhaq/onos-prometheus-exporter (good)
