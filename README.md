@@ -46,7 +46,7 @@ Create a new database for ONOS
 > use onos
 > CREATE USER onos WITH PASSWORD 'onos.password' WITH ALL PRIVILEGES
 ```
-Install firewalld
+Install firewalld (**Maybe skip this step because the firewall will be affected the onos service)
 ```
 $ sudo apt install firewalld
 $ sudo systemctl start firewalld
