@@ -46,16 +46,7 @@ Create a new database for ONOS
 > use onos
 > CREATE USER onos WITH PASSWORD 'onos.password' WITH ALL PRIVILEGES
 ```
-Install firewalld (**Maybe skip this step because the firewall will be affected the onos service)
-```
-$ sudo apt install firewalld
-$ sudo systemctl start firewalld
-$ sudo firewall-cmd --zone=public --add-port=8086/tcp --permanent
-$ sudo firewall-cmd --zone=public --add-port=8088/tcp --permanent
-$ sudo firewall-cmd --zone=public --add-port=8888/tcp --permanent
-$ sudo firewall-cmd --reload
-$ sudo firewall-cmd --zone=public --list-port
-```
+
 ### Prometheus
 Get the sources and execute the script
 ```
@@ -71,11 +62,20 @@ The source will be installed in the directory /opt/onos-prometheus-exporter. Mod
     "password": "rocks"
 }
 ```
+Modify the TCP port in the file "exporter.py"
+```
+if __name__ == "__main__":
+    REGISTRY.register(prometheusCollector())
+    start_http_server(9090)
+    
+    while True:
+        time.sleep(1)
+```
 Restart the onos-exporter service
 ```
 $ sudo systemctl restart onos-exporter
 ```
-Add a new Prometheus Job into the configurate file
+Add a new Prometheus Job into the configurate file and set the tcp port
 ```
 $ sudo vi /etc/prometheus/prometheus.yml
 
@@ -84,7 +84,7 @@ $ sudo vi /etc/prometheus/prometheus.yml
      tls_config:
          insecure_skip_verify: true
      static_configs:
-       - targets: ['localhost:8888']
+       - targets: ['localhost:9090']
 ```
 Restart the Prometheus service and check if the service works propertly
 ```
